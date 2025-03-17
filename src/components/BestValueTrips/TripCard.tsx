@@ -1,5 +1,6 @@
 import React from "react";
-import { MapPin, Clock, DollarSign } from "lucide-react";
+import { Link } from "react-router-dom";
+import { MapPin, Clock } from "lucide-react";
 
 interface TripCardProps {
   title: string;
@@ -35,9 +36,11 @@ const TripCard: React.FC<TripCardProps> = ({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-2xl font-bold text-red-500">${price}</span>
-          <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors duration-300">
-            Book Now
-          </button>
+          <Link to={`/tour/${title}`}>
+            <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors duration-300">
+              Book Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>

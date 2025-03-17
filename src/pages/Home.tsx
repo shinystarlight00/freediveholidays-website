@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../components/Header/Header";
+import Header from "../components/Layout/Header/Header";
 import Hero from "../components/Hero/Hero";
 import PopularDestinations from "../components/PopularDestinations/PopularDestinations";
 import BestValueTrips from "../components/BestValueTrips/BestValueTrips";
 import WhyChooseUs from "../components/WhyChooseUs/WhyChooseUs";
 import Articles from "../components/Articles/Articles";
-import Footer from "../components/Footer/Footer";
+import Footer from "../components/Layout/Footer/Footer";
 
 const Home: React.FC = () => {
   return (
