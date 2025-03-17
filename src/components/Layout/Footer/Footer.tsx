@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Facebook, Twitter, Instagram } from "lucide-react";
 
 const Footer: React.FC = () => {
@@ -22,24 +23,25 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-red-500 transition-colors">
-                  About Us
-                </a>
+                <Link to="/" className="hover:text-red-500 transition-colors">
+                  Home
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-red-500 transition-colors">
+                <Link
+                  to="/destinations"
+                  className="hover:text-red-500 transition-colors"
+                >
                   Destinations
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-red-500 transition-colors">
+                <Link
+                  to="/tours"
+                  className="hover:text-red-500 transition-colors"
+                >
                   Tours
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-red-500 transition-colors">
-                  Blog
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -47,24 +49,28 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-semibold mb-4">Support</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-red-500 transition-colors">
+                <Link
+                  to="/about-us"
+                  className="hover:text-red-500 transition-colors"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="hover:text-red-500 transition-colors"
+                >
                   Contact Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-red-500 transition-colors">
+                <Link
+                  to="/faq"
+                  className="hover:text-red-500 transition-colors"
+                >
                   FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-red-500 transition-colors">
-                  Terms & Conditions
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-red-500 transition-colors">
-                  Privacy Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
