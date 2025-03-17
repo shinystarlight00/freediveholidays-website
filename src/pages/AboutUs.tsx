@@ -8,7 +8,7 @@ const AboutUS: React.FC = () => {
     <>
       <Header />
       <Hero />
-
+      About Us Page
       <Footer />
     </>
   );

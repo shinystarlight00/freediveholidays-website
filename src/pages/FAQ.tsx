@@ -8,7 +8,7 @@ const Faq: React.FC = () => {
     <>
       <Header />
       <Hero />
-
+      FAQ Page
       <Footer />
     </>
   );

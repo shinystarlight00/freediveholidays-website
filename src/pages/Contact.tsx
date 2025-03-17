@@ -8,7 +8,7 @@ const Contact: React.FC = () => {
     <>
       <Header />
       <Hero />
-
+      Contact Page
       <Footer />
     </>
   );
