@@ -8,6 +8,13 @@ import TourDetail from "./pages/Tour/Detail";
 import Contact from "./pages/Contact";
 import AboutUS from "./pages/AboutUs";
 import Faq from "./pages/FAQ";
+import ConciergeIndex from "./pages/Concierge/concierge";
+import InVilla from "./pages/Concierge/InVilla";
+import FridgeStock from "./pages/Concierge/FridgeStock";
+import HouseKeeping from "./pages/Concierge/HouseKeeping";
+import PrivateChef from "./pages/Concierge/PrivateChef";
+import ToursActivities from "./pages/Concierge/ToursActivities";
+import CarHire from "./pages/Concierge/CarHire";
 
 function App() {
   return (
@@ -23,6 +30,14 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about-us" element={<AboutUS />} />
           <Route path="/faq" element={<Faq />} />
+
+          <Route path="/concierge" element={<ConciergeIndex />} />
+          <Route path="/in-villa" element={<InVilla />} />
+          <Route path="/private-chef" element={<PrivateChef />} />
+          <Route path="/fridge-stock" element={<FridgeStock />} />
+          <Route path="/house-keeping" element={<HouseKeeping />} />
+          <Route path="/car-hire" element={<CarHire />} />
+          <Route path="/tours-activity" element={<ToursActivities />} />
         </Routes>
       </Router>
     </div>

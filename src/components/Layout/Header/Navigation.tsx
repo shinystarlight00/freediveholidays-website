@@ -16,6 +16,18 @@ const Navigation: React.FC = () => {
       url: "/destinations",
     },
     {
+      name: "Concierge",
+      items: [
+        { name: "Concierge", url: "/concierge" },
+        { name: "In-Villa Services", url: "/in-villa" },
+        { name: "Private Chefs", url: "/private-chef" },
+        { name: "Fridge Stocking", url: "/fridge-stock" },
+        { name: "Housekeeping", url: "/house-keeping" },
+        { name: "Car Hire & Transfers", url: "/car-hire" },
+        { name: "Tours and Activities", url: "/tours-activity" },
+      ],
+    },
+    {
       name: "Pages",
       items: [
         { name: "About Us", url: "/about-us" },
