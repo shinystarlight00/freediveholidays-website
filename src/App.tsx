@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import DestinationList from "./pages/Destination/List";
@@ -8,7 +7,7 @@ import TourDetail from "./pages/Tour/Detail";
 import Contact from "./pages/Contact";
 import AboutUS from "./pages/AboutUs";
 import Faq from "./pages/FAQ";
-import ConciergeIndex from "./pages/Concierge/concierge";
+import ConciergeIndex from "./pages/Concierge/Concierge";
 import InVilla from "./pages/Concierge/InVilla";
 import FridgeStock from "./pages/Concierge/FridgeStock";
 import HouseKeeping from "./pages/Concierge/HouseKeeping";

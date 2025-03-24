@@ -54,7 +54,7 @@ const ConciergeIndex: React.FC = () => {
             <h3 className="text-lg text-[#0172b1] font-semibold">
               Prefer to have a chat? Call us on:
             </h3>
-            <ul className="mt-10 ml-4 text-[#0172b1] space-y-2 list-disc">
+            <ul className="mt-10 ml-5 text-[#0172b1] space-y-2 list-disc">
               <li>0333 888 0205 (UK)</li>
               <li>+1 (713) 332-4956 (US)</li>
               <li>+44 333 888 0205 (Intl)</li>

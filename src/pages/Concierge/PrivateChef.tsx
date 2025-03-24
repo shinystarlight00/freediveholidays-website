@@ -3,6 +3,7 @@ import Header from "../../components/Layout/Header/Header";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Layout/Footer/Footer";
 import ServiceHeader from "../../components/Concierge/ServiceHeader";
+import ServiceLink from "../../components/Concierge/ServiceLink";
 import PrivateChefImage from "../../assets/images/Holiday_catering_CTA_large_opt.jpg";
 
 const PrivateChef: React.FC = () => {
@@ -20,6 +21,7 @@ const PrivateChef: React.FC = () => {
     {
       src: PrivateChefImage,
       alt: "private chef image",
+      url: "/",
       title: "BOOK YOUR CATERING NOW!",
       desc: [
         "Already have a booking? Complete our concierge form or give us a call on 0333 888 0205.",
@@ -34,7 +36,12 @@ const PrivateChef: React.FC = () => {
       <Hero />
 
       <div className="max-w-7xl mx-auto px-4 py-12 font-sans text-gray-800">
-        <ServiceHeader service={service} images={images} />
+        <div className="grid md:grid-cols-2 gap-4 mt-12">
+          <div>
+            <ServiceHeader service={service} />
+          </div>
+          <ServiceLink images={images} />
+        </div>
       </div>
 
       <Footer />

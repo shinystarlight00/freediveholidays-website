@@ -3,6 +3,7 @@ import Header from "../../components/Layout/Header/Header";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Layout/Footer/Footer";
 import ServiceHeader from "../../components/Concierge/ServiceHeader";
+import ServiceLink from "../../components/Concierge/ServiceLink";
 import InVillaImage from "../../assets/images/champagne.jpg";
 
 const InVilla: React.FC = () => {
@@ -17,6 +18,7 @@ const InVilla: React.FC = () => {
     {
       src: InVillaImage,
       alt: "in villa image",
+      url: "/",
       title: "Book now!",
       desc: ["Book any of our concierge services via our easy-to-use form."],
     },
@@ -28,7 +30,12 @@ const InVilla: React.FC = () => {
       <Hero />
 
       <div className="max-w-7xl mx-auto px-4 py-12 font-sans text-gray-800">
-        <ServiceHeader service={service} images={images} />
+        <div className="grid md:grid-cols-2 gap-4 mt-12">
+          <div>
+            <ServiceHeader service={service} />
+          </div>
+          <ServiceLink images={images} />
+        </div>
       </div>
 
       <Footer />

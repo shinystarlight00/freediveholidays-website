@@ -3,6 +3,7 @@ import Header from "../../components/Layout/Header/Header";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Layout/Footer/Footer";
 import ServiceHeader from "../../components/Concierge/ServiceHeader";
+import ServiceLink from "../../components/Concierge/ServiceLink";
 import HousekeepingImage from "../../assets/images/Housekeeping-Services-Olivers-Travels.jpg";
 
 const HouseKeeping: React.FC = () => {
@@ -19,6 +20,7 @@ const HouseKeeping: React.FC = () => {
     {
       src: HousekeepingImage,
       alt: "house keeping",
+      url: "/",
       title: "Don't worry about the cleaning!",
       desc: ["A maid service can offer an extra hand on your holiday."],
     },
@@ -30,7 +32,12 @@ const HouseKeeping: React.FC = () => {
       <Hero />
 
       <div className="max-w-7xl mx-auto px-4 py-12 font-sans text-gray-800">
-        <ServiceHeader service={service} images={images} />
+        <div className="grid md:grid-cols-2 gap-4 mt-12">
+          <div>
+            <ServiceHeader service={service} />
+          </div>
+          <ServiceLink images={images} />
+        </div>
       </div>
 
       <Footer />
