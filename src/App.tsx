@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// pages
 import Home from "./pages/Home";
 import DestinationList from "./pages/Destination/List";
 import DestinationDetails from "./pages/Destination/Detail";
@@ -14,6 +15,8 @@ import HouseKeeping from "./pages/Concierge/HouseKeeping";
 import PrivateChef from "./pages/Concierge/PrivateChef";
 import ToursActivities from "./pages/Concierge/ToursActivities";
 import CarHire from "./pages/Concierge/CarHire";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 
 function App() {
   return (
@@ -37,6 +40,9 @@ function App() {
           <Route path="/house-keeping" element={<HouseKeeping />} />
           <Route path="/car-hire" element={<CarHire />} />
           <Route path="/tours-activity" element={<ToursActivities />} />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
     </div>
