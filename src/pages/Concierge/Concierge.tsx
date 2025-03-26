@@ -1,15 +1,17 @@
 import React from "react";
 import Header from "../../components/Layout/Header/Header";
-import Hero from "../../components/Hero/Hero";
+import HeroImage from "../../components/Hero/HeroImage";
 import Footer from "../../components/Layout/Footer/Footer";
 import PrimaryServices from "../../components/Concierge/PrimaryServices";
 import PopularServices from "../../components/Concierge/PopularServices";
+
+import VillaImage from "../../assets/images/Turkey-Schone-Bucht-Olivers-Travels.jpg";
 
 const ConciergeIndex: React.FC = () => {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroImage image={VillaImage} />
 
       <div className="max-w-7xl mx-auto px-4 py-12 font-sans text-gray-800">
         {/* Top Banner Section */}

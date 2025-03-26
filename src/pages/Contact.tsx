@@ -1,13 +1,15 @@
 import React from "react";
 import Header from "../components/Layout/Header/Header";
-import Hero from "../components/Hero/Hero";
+import HeroImage from "../components/Hero/HeroImage";
 import Footer from "../components/Layout/Footer/Footer";
+
+import VillaImage from "../assets/images/Turkey-Schone-Bucht-Olivers-Travels.jpg";
 
 const Contact: React.FC = () => {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroImage image={VillaImage} />
 
       <section className="py-16 px-6 bg-gray-100">
         <div className="max-w-5xl m-auto">

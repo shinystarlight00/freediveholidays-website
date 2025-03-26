@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Header from "../../components/Layout/Header/Header";
-import Hero from "../../components/Hero/Hero";
+import HeroImage from "../../components/Hero/HeroImage";
 import Footer from "../../components/Layout/Footer/Footer";
 import { Button, Input } from "../../components/UI";
 import { Mail } from "lucide-react";
+
+import VillaImage from "../../assets/images/Turkey-Schone-Bucht-Olivers-Travels.jpg";
 
 interface FormData {
   fullName: string;
@@ -13,7 +15,7 @@ interface FormData {
   persons: string;
 }
 
-export default function TourDetail() {
+export default function VillaDetail() {
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -31,7 +33,7 @@ export default function TourDetail() {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroImage image={VillaImage} />
 
       <div className="max-w-7xl mx-auto mt-5 p-6 grid md:grid-cols-3 gap-6">
         {/* Left Side */}

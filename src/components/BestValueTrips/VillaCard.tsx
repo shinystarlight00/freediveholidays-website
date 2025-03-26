@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Clock } from "lucide-react";
 
-interface TripCardProps {
+interface VillaCardProps {
   title: string;
   location: string;
   duration: string;
@@ -11,7 +11,7 @@ interface TripCardProps {
   delay: number;
 }
 
-const TripCard: React.FC<TripCardProps> = ({
+const VillaCard: React.FC<VillaCardProps> = ({
   title,
   location,
   duration,
@@ -36,7 +36,7 @@ const TripCard: React.FC<TripCardProps> = ({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-2xl font-bold text-red-500">${price}</span>
-          <Link to={`/tour/${title}`}>
+          <Link to={`/villa/${title}`}>
             <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors duration-300">
               Book Now
             </button>
@@ -47,4 +47,4 @@ const TripCard: React.FC<TripCardProps> = ({
   );
 };
 
-export default TripCard;
+export default VillaCard;

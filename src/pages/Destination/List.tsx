@@ -1,8 +1,10 @@
 import React from "react";
 import Header from "../../components/Layout/Header/Header";
-import Hero from "../../components/Hero/Hero";
+import HeroImage from "../../components/Hero/HeroImage";
 import Footer from "../../components/Layout/Footer/Footer";
 import DestinationCard from "../../components/PopularDestinations/DestinationCard";
+
+import DestinationImage from "../../assets/images/Summer_of_Culture_hero.jpg";
 
 const destinations = [
   {
@@ -71,7 +73,7 @@ const DestinationList: React.FC = () => {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroImage image={DestinationImage} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto py-5">
         {destinations.map((destination, index) => (

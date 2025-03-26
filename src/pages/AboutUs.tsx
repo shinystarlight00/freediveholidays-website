@@ -1,13 +1,15 @@
 import React from "react";
 import Header from "../components/Layout/Header/Header";
-import Hero from "../components/Hero/Hero";
+import HeroImage from "../components/Hero/HeroImage";
 import Footer from "../components/Layout/Footer/Footer";
+
+import VillaImage from "../assets/images/Turkey-Schone-Bucht-Olivers-Travels.jpg";
 
 const AboutUS: React.FC = () => {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroImage image={VillaImage} />
 
       <div className="max-w-7xl mx-auto p-6 text-gray-800">
         <section className="text-center mb-12">

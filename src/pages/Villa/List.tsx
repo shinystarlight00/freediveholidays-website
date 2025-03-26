@@ -1,12 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import Header from "../../components/Layout/Header/Header";
-import Hero from "../../components/Hero/Hero";
+import HeroImage from "../../components/Hero/HeroImage";
 import Footer from "../../components/Layout/Footer/Footer";
-import TripCard from "../../components/BestValueTrips/TripCard";
+import VillaCard from "../../components/BestValueTrips/VillaCard";
 import { Search, ChevronDown, DollarSign } from "lucide-react";
 
-const DestinationDetails: React.FC = () => {
+import VillaImage from "../../assets/images/Turkey-Schone-Bucht-Olivers-Travels.jpg";
+
+const VillaList: React.FC = () => {
   const [searchProp, setSearchProp] = useState({ advanced: false });
 
   const trips = [
@@ -94,7 +96,7 @@ const DestinationDetails: React.FC = () => {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroImage image={VillaImage} />
 
       <section className="py-16 px-6 bg-gray-100">
         <div className="search-bar shadow-2xl rounded-md max-w-7xl mx-auto my-5 p-4 bg-white">
@@ -206,7 +208,7 @@ const DestinationDetails: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {trips.map((trip, index) => (
-            <TripCard key={index} {...trip} delay={index * 200} />
+            <VillaCard key={index} {...trip} delay={index * 200} />
           ))}
         </div>
       </section>
@@ -216,4 +218,4 @@ const DestinationDetails: React.FC = () => {
   );
 };
 
-export default DestinationDetails;
+export default VillaList;

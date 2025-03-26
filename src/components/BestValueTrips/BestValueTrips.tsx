@@ -1,5 +1,5 @@
 import React from "react";
-import TripCard from "./TripCard";
+import VillaCard from "./VillaCard";
 
 const BestValueTrips: React.FC = () => {
   const trips = [
@@ -40,7 +40,7 @@ const BestValueTrips: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {trips.map((trip, index) => (
-          <TripCard key={trip.title} {...trip} delay={index * 200} />
+          <VillaCard key={trip.title} {...trip} delay={index * 200} />
         ))}
       </div>
     </section>

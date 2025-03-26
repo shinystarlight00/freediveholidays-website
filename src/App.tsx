@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import DestinationList from "./pages/Destination/List";
 import DestinationDetails from "./pages/Destination/Detail";
-import TourList from "./pages/Tour/List";
-import TourDetail from "./pages/Tour/Detail";
+import VillaList from "./pages/Villa/List";
+import VillaDetail from "./pages/Villa/Detail";
 import Contact from "./pages/Contact";
 import AboutUS from "./pages/AboutUs";
 import Faq from "./pages/FAQ";
@@ -26,8 +26,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/destinations" element={<DestinationList />} />
           <Route path="/destination/:id" element={<DestinationDetails />} />
-          <Route path="/tours" element={<TourList />} />
-          <Route path="/tour/:id" element={<TourDetail />} />
+          <Route path="/villas" element={<VillaList />} />
+          <Route path="/villa/:id" element={<VillaDetail />} />
 
           <Route path="/contact" element={<Contact />} />
           <Route path="/about-us" element={<AboutUS />} />

@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, Menu as MenuIcon, X } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import DropdownMenu from "./DropdownMenu";
 
-import { RootState } from "../../../store";
+import { logout } from "../../../actions/userAction";
+
+import { RootState, AppDispatch } from "../../../store";
 
 const Navigation: React.FC = () => {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
@@ -15,6 +17,8 @@ const Navigation: React.FC = () => {
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -35,7 +39,7 @@ const Navigation: React.FC = () => {
 
   const menuItems = [
     { name: "Home", items: [], url: "/" },
-    { name: "Tours", items: [], url: "/tours" },
+    { name: "Villas", items: [], url: "/villas" },
     {
       name: "Destinations",
       items: [],
@@ -65,6 +69,10 @@ const Navigation: React.FC = () => {
 
   const toggleDropdown = (name: string) => {
     setOpenDropdown(openDropdown === name ? null : name);
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -120,7 +128,14 @@ const Navigation: React.FC = () => {
         )}
 
         {isAuthenticated ? (
-          <></>
+          <div className="relative">
+            <button
+              className="transition-colors duration-300 hover:text-red-300"
+              onClick={onLogout}
+            >
+              Logout
+            </button>
+          </div>
         ) : (
           <div className="relative">
             <Link to="/register">
@@ -207,7 +222,9 @@ const Navigation: React.FC = () => {
               )}
 
               {isAuthenticated ? (
-                <></>
+                <li>
+                  <button onClick={onLogout}>Logout</button>
+                </li>
               ) : (
                 <li>
                   <Link to="/register">

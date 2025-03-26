@@ -1,10 +1,12 @@
 import React from "react";
 import Header from "../../components/Layout/Header/Header";
-import Hero from "../../components/Hero/Hero";
+import HeroImage from "../../components/Hero/HeroImage";
 import Footer from "../../components/Layout/Footer/Footer";
 import ServiceHeader from "../../components/Concierge/ServiceHeader";
 import ServiceLink from "../../components/Concierge/ServiceLink";
 import PrivateChefImage from "../../assets/images/Holiday_catering_CTA_large_opt.jpg";
+
+import VillaImage from "../../assets/images/Turkey-Schone-Bucht-Olivers-Travels.jpg";
 
 const PrivateChef: React.FC = () => {
   const service = {
@@ -33,7 +35,7 @@ const PrivateChef: React.FC = () => {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroImage image={VillaImage} />
 
       <div className="max-w-7xl mx-auto px-4 py-12 font-sans text-gray-800">
         <div className="grid md:grid-cols-2 gap-4 mt-12">

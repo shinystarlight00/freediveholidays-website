@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Header from "../components/Layout/Header/Header";
-import Hero from "../components/Hero/Hero";
+import HeroImage from "../components/Hero/HeroImage";
 import Footer from "../components/Layout/Footer/Footer";
+
+import VillaImage from "../assets/images/Turkey-Schone-Bucht-Olivers-Travels.jpg";
 
 const faqData = [
   {
@@ -36,7 +38,7 @@ const Faq: React.FC = () => {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroImage image={VillaImage} />
 
       <div className="max-w-4xl mx-auto p-6 my-10 text-gray-800">
         <h1 className="text-4xl font-bold text-center mb-6">
