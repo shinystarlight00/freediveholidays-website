@@ -1,19 +1,17 @@
 import React from "react";
 import Header from "../components/Layout/Header/Header";
-import HeroImage from "../components/Hero/HeroImage";
+import Hero from "../components/Hero/Hero";
 import PopularDestinations from "../components/PopularDestinations/PopularDestinations";
 import BestValueTrips from "../components/BestValueTrips/BestValueTrips";
 import WhyChooseUs from "../components/WhyChooseUs/WhyChooseUs";
 import Articles from "../components/Articles/Articles";
 import Footer from "../components/Layout/Footer/Footer";
 
-import VillaImage from "../assets/images/Turkey-Schone-Bucht-Olivers-Travels.jpg";
-
 const Home: React.FC = () => {
   return (
     <>
       <Header />
-      <HeroImage image={VillaImage} />
+      <Hero />
 
       <PopularDestinations />
       <BestValueTrips />
