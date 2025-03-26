@@ -51,15 +51,15 @@ const Login: React.FC = () => {
     <>
       <Header />
 
-      <section className="py-16 px-6 bg-gray-100">
-        <div className="max-w-3xl m-auto mt-10">
-          <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <Loading />
+        </div>
+      ) : (
+        <section className="py-16 px-6 bg-gray-100">
+          <div className="max-w-3xl m-auto mt-10">
+            <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
-          {loading ? (
-            <div className="flex justify-center items-center">
-              <Loading />
-            </div>
-          ) : (
             <div>
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700">
@@ -102,10 +102,10 @@ const Login: React.FC = () => {
                 </Link>
               </div>
             </div>
-          )}
-        </div>
-        <ToastContainer position="bottom-center" autoClose={5000} />
-      </section>
+          </div>
+          <ToastContainer position="bottom-center" autoClose={5000} />
+        </section>
+      )}
 
       <Footer />
     </>
