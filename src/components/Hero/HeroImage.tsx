@@ -7,7 +7,7 @@ interface HeroImageProps {
 const Hero: React.FC<HeroImageProps> = ({ image }) => {
   return (
     <div className="relative">
-      <div className="h-96">
+      <div className="h-[500px]">
         <img
           className="w-full h-full absolute top-0 left-0"
           src={image}

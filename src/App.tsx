@@ -1,4 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+// Private route
+import ProtectedRoute from "./route/ProtectedRoute";
+
 // pages
 import Home from "./pages/Home";
 import DestinationList from "./pages/Destination/List";
@@ -17,6 +21,10 @@ import ToursActivities from "./pages/Concierge/ToursActivities";
 import CarHire from "./pages/Concierge/CarHire";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+
+// Admin
+import AdminHome from "./pages/Admin/Admin";
+import AdminUserManage from "./pages/Admin/pages/UserManage";
 
 function App() {
   return (
@@ -43,6 +51,11 @@ function App() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          <Route element={<ProtectedRoute isAdmin={true} />}>
+            <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/users" element={<AdminUserManage />} />
+          </Route>
         </Routes>
       </Router>
     </div>

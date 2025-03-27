@@ -65,6 +65,11 @@ const Navigation: React.FC = () => {
         { name: "FAQ", url: "/faq" },
       ],
     },
+    {
+      name: "Admin",
+      items: [],
+      url: "/admin",
+    },
   ];
 
   const toggleDropdown = (name: string) => {
@@ -76,167 +81,170 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className="bg-transparent py-4 px-6 flex justify-between items-center">
-      <div className="text-2xl font-bold transition-transform duration-300 hover:scale-110">
-        GTour
-      </div>
+    <nav className="bg-white fixed top-0 left-0 z-50 w-full">
+      <div className="flex justify-between items-center py-4 px-6">
+        <div className="text-2xl font-bold transition-transform duration-300 hover:scale-110">
+          GTour
+        </div>
 
-      {/* Desktop Navigation */}
-      <div className="hidden md:flex space-x-4">
-        {menuItems.map((item) => (
-          <div
-            key={item.name}
-            className="relative"
-            onMouseEnter={() => setHoveredMenu(item.name)}
-            onMouseLeave={() => setHoveredMenu(null)}
-          >
-            {item.url ? (
-              <Link to={item.url}>
-                <button className="flex items-center transition-colors duration-300 hover:text-red-300">
-                  {item.name}
-                  {item.items.length > 0 && (
-                    <ChevronDown size={16} className="ml-1" />
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex space-x-4">
+          {menuItems.map((item) => (
+            <div
+              key={item.name}
+              className="relative"
+              onMouseEnter={() => setHoveredMenu(item.name)}
+              onMouseLeave={() => setHoveredMenu(null)}
+            >
+              {item.url ? (
+                <Link to={item.url}>
+                  <button className="flex items-center transition-colors duration-300 hover:text-red-300">
+                    {item.name}
+                    {item.items.length > 0 && (
+                      <ChevronDown size={16} className="ml-1" />
+                    )}
+                  </button>
+                </Link>
+              ) : (
+                <>
+                  <button className="flex items-center transition-colors duration-300 hover:text-red-300">
+                    {item.name}
+                    {item.items.length > 0 && (
+                      <ChevronDown size={16} className="ml-1" />
+                    )}
+                  </button>
+                  {hoveredMenu === item.name && item.items.length > 0 && (
+                    <DropdownMenu items={item.items} />
                   )}
+                </>
+              )}
+            </div>
+          ))}
+
+          {isAuthenticated ? (
+            <></>
+          ) : (
+            <div className="relative">
+              <Link to="/login">
+                <button className="flex items-center transition-colors duration-300 hover:text-red-300">
+                  Login
                 </button>
               </Link>
-            ) : (
-              <>
+            </div>
+          )}
+
+          {isAuthenticated ? (
+            <div className="relative">
+              <button
+                className="transition-colors duration-300 hover:text-red-300"
+                onClick={onLogout}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="relative">
+              <Link to="/register">
                 <button className="flex items-center transition-colors duration-300 hover:text-red-300">
-                  {item.name}
-                  {item.items.length > 0 && (
-                    <ChevronDown size={16} className="ml-1" />
-                  )}
+                  Register
                 </button>
-                {hoveredMenu === item.name && item.items.length > 0 && (
-                  <DropdownMenu items={item.items} />
-                )}
-              </>
-            )}
-          </div>
-        ))}
+              </Link>
+            </div>
+          )}
+        </div>
 
-        {isAuthenticated ? (
-          <></>
-        ) : (
-          <div className="relative">
-            <Link to="/login">
-              <button className="flex items-center transition-colors duration-300 hover:text-red-300">
-                Login
-              </button>
-            </Link>
-          </div>
-        )}
+        {/* Mobile Navigation */}
+        <div className="md:hidden ">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-gray-800 focus:outline-none"
+          >
+            {isMenuOpen ? <X size={28} /> : <MenuIcon size={28} />}
+          </button>
 
-        {isAuthenticated ? (
-          <div className="relative">
-            <button
-              className="transition-colors duration-300 hover:text-red-300"
-              onClick={onLogout}
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <div className="relative">
-            <Link to="/register">
-              <button className="flex items-center transition-colors duration-300 hover:text-red-300">
-                Register
-              </button>
-            </Link>
-          </div>
-        )}
-      </div>
+          {isMenuOpen && (
+            <div ref={mobileMenuRef}>
+              <ul className="h-full w-[300px] bg-white p-4 px-10 space-y-3 fixed right-0 top-0 z-10">
+                <li>
+                  <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="text-gray-800 focus:outline-none float-right"
+                  >
+                    {isMenuOpen ? <X size={28} /> : <MenuIcon size={28} />}
+                  </button>
+                </li>
+                {menuItems.map((item) => (
+                  <li key={item.name}>
+                    {item.url ? (
+                      <Link to={item.url}>
+                        <button className="flex items-center transition-colors duration-300 hover:text-red-300">
+                          {item.name}
+                          {item.items.length > 0 && (
+                            <ChevronDown size={16} className="ml-1" />
+                          )}
+                        </button>
+                      </Link>
+                    ) : (
+                      <>
+                        <button
+                          className="flex items-center transition-colors duration-300 hover:text-red-300"
+                          onClick={() => toggleDropdown(item.name)}
+                        >
+                          {item.name}
+                          {item.items.length > 0 && (
+                            <ChevronDown size={16} className="ml-1" />
+                          )}
+                        </button>
+                        {openDropdown === item.name &&
+                          item.items.length > 0 && (
+                            <ul className="pl-4 space-y-3 mt-2">
+                              {item.items.map((subItem) => (
+                                <li key={subItem.name}>
+                                  <Link
+                                    to={subItem.url}
+                                    className="block text-gray-700 hover:bg-gray-100 px-4"
+                                  >
+                                    {subItem.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                      </>
+                    )}
+                  </li>
+                ))}
+                <li className="p-3"></li>
 
-      {/* Mobile Navigation */}
-      <div className="md:hidden ">
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="text-gray-800 focus:outline-none"
-        >
-          {isMenuOpen ? <X size={28} /> : <MenuIcon size={28} />}
-        </button>
-
-        {isMenuOpen && (
-          <div ref={mobileMenuRef}>
-            <ul className="h-full w-[300px] bg-white p-4 px-10 space-y-3 fixed right-0 top-0 z-10">
-              <li>
-                <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="text-gray-800 focus:outline-none float-right"
-                >
-                  {isMenuOpen ? <X size={28} /> : <MenuIcon size={28} />}
-                </button>
-              </li>
-              {menuItems.map((item) => (
-                <li key={item.name}>
-                  {item.url ? (
-                    <Link to={item.url}>
+                {isAuthenticated ? (
+                  <></>
+                ) : (
+                  <li>
+                    <Link to="/login">
                       <button className="flex items-center transition-colors duration-300 hover:text-red-300">
-                        {item.name}
-                        {item.items.length > 0 && (
-                          <ChevronDown size={16} className="ml-1" />
-                        )}
+                        Login
                       </button>
                     </Link>
-                  ) : (
-                    <>
-                      <button
-                        className="flex items-center transition-colors duration-300 hover:text-red-300"
-                        onClick={() => toggleDropdown(item.name)}
-                      >
-                        {item.name}
-                        {item.items.length > 0 && (
-                          <ChevronDown size={16} className="ml-1" />
-                        )}
+                  </li>
+                )}
+
+                {isAuthenticated ? (
+                  <li>
+                    <button onClick={onLogout}>Logout</button>
+                  </li>
+                ) : (
+                  <li>
+                    <Link to="/register">
+                      <button className="flex items-center transition-colors duration-300 hover:text-red-300">
+                        Register
                       </button>
-                      {openDropdown === item.name && item.items.length > 0 && (
-                        <ul className="pl-4 space-y-3 mt-2">
-                          {item.items.map((subItem) => (
-                            <li key={subItem.name}>
-                              <Link
-                                to={subItem.url}
-                                className="block text-gray-700 hover:bg-gray-100 px-4"
-                              >
-                                {subItem.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </>
-                  )}
-                </li>
-              ))}
-              <li className="p-3"></li>
-
-              {isAuthenticated ? (
-                <></>
-              ) : (
-                <li>
-                  <Link to="/login">
-                    <button className="flex items-center transition-colors duration-300 hover:text-red-300">
-                      Login
-                    </button>
-                  </Link>
-                </li>
-              )}
-
-              {isAuthenticated ? (
-                <li>
-                  <button onClick={onLogout}>Logout</button>
-                </li>
-              ) : (
-                <li>
-                  <Link to="/register">
-                    <button className="flex items-center transition-colors duration-300 hover:text-red-300">
-                      Register
-                    </button>
-                  </Link>
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );

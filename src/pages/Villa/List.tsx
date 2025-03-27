@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Header from "../../components/Layout/Header/Header";
 import HeroImage from "../../components/Hero/HeroImage";
 import Footer from "../../components/Layout/Footer/Footer";
