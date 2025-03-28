@@ -25,6 +25,8 @@ import Register from "./pages/Auth/Register";
 // Admin
 import AdminHome from "./pages/Admin/Admin";
 import AdminUserManage from "./pages/Admin/pages/UserManage";
+import VillaManagement from "./pages/Admin/pages/VillaManage";
+import DestinationManagement from "./pages/Admin/pages/DestinationManage";
 
 function App() {
   return (
@@ -55,6 +57,11 @@ function App() {
           <Route element={<ProtectedRoute isAdmin={true} />}>
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/admin/users" element={<AdminUserManage />} />
+            <Route path="/admin/villas" element={<VillaManagement />} />
+            <Route
+              path="/admin/destinations"
+              element={<DestinationManagement />}
+            />
           </Route>
         </Routes>
       </Router>

@@ -27,7 +27,7 @@ interface UserState {
   users: User[];
 }
 
-const UserManagement: React.FC = () => {
+const DestinationManagement: React.FC = () => {
   const { users } = useSelector(
     (state: RootState) => state.allUsers as UserState
   );
@@ -87,4 +87,4 @@ const UserManagement: React.FC = () => {
   );
 };
 
-export default UserManagement;
+export default DestinationManagement;

@@ -13,12 +13,18 @@ interface User {
   address: string;
   postalCode: string;
   password: string;
+  role: string;
 }
 
 interface UserDetailModalProps {
   user: User;
   onClose: () => void;
 }
+
+const roles = [
+  { label: "Admin", name: "admin" },
+  { label: "User", name: "user" },
+];
 
 const UserDetailModal: React.FC<UserDetailModalProps> = ({ user, onClose }) => {
   const [editMode, setEditMode] = useState(false);
@@ -38,6 +44,10 @@ const UserDetailModal: React.FC<UserDetailModalProps> = ({ user, onClose }) => {
   };
 
   const onHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedUser({ ...editedUser, [e.target.name]: e.target.value });
+  };
+
+  const onHandleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setEditedUser({ ...editedUser, [e.target.name]: e.target.value });
   };
 
@@ -126,6 +136,30 @@ const UserDetailModal: React.FC<UserDetailModalProps> = ({ user, onClose }) => {
                       />
                     ) : (
                       <span>{user.postalCode}</span>
+                    )}
+                  </p>
+                  <p className="text-sm text-gray-500 grid grid-cols-2 items-center">
+                    <span>Role:</span>
+                    {editMode ? (
+                      <select
+                        className="col-span-1 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        name="role"
+                        value={editedUser.role || ""}
+                        onChange={onHandleSelect}
+                      >
+                        {roles.map((role) => (
+                          <option key={role.name} value={role.name}>
+                            {role.label}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <span>
+                        {
+                          roles.filter((role) => role.name == user.role)[0]
+                            .label
+                        }
+                      </span>
                     )}
                   </p>
                 </div>
