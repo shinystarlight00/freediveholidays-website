@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
 import { Dispatch, AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { RootState } from "../store"; // Assuming RootState is defined
+
+import { RootState } from "../store";
 import {
   ALL_USERS_FAIL,
   ALL_USERS_REQUEST,
@@ -34,16 +34,19 @@ import {
   UPDATE_PROFILE_FAIL,
   UPDATE_PROFILE_REQUEST,
   UPDATE_PROFILE_SUCCESS,
+  UPDATE_USER_FAIL,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
 } from "./constants";
 
-import { BACKEND_URL } from "../utils/constants";
+import request from "../utils/request";
 
 // Define types for user and API response
 interface User {
-  // _id: string;
+  _id: string;
   name: string;
   email: string;
   address: string;
@@ -53,12 +56,8 @@ interface User {
   // role: string;
 }
 
-interface ApiResponse<T> {
-  success: boolean;
-  user?: T;
-  users?: T[];
-  message?: string;
-  token?: string;
+interface ApiResponse<> {
+  response: any;
 }
 
 // Thunk Type
@@ -71,15 +70,30 @@ export const login =
     try {
       dispatch({ type: LOGIN_REQUEST });
 
-      const config = { headers: { "Content-Type": "application/json" } };
+      // Correctly pass headers
+      const headers = { "Content-Type": "application/json" };
 
-      const { data }: { data: ApiResponse<User> } = await axios.post(
-        `${BACKEND_URL}/api/login`,
+      // Call MarketAPI correctly
+      const apiresponse: ApiResponse = await request.post(
+        "/login",
         { email, password },
-        config
+        headers
       );
 
-      dispatch({ type: LOGIN_SUCCESS, payload: data.user });
+      const response = apiresponse.response;
+
+      if (response.success) {
+        if (response.token) {
+          localStorage.setItem("access_token", response.token);
+        }
+
+        dispatch({ type: LOGIN_SUCCESS, payload: response.user });
+      } else {
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: response.message || "Login failed",
+        });
+      }
     } catch (error: any) {
       dispatch({ type: LOGIN_FAIL, payload: error.response?.data?.message });
     }
@@ -92,15 +106,24 @@ export const register =
     try {
       dispatch({ type: REGISTER_USER_REQUEST });
 
-      const config = { headers: { "Content-Type": "multipart/form-data" } };
+      const headers = { "Content-Type": "multipart/form-data" };
 
-      const { data }: { data: ApiResponse<User> } = await axios.post(
-        `${BACKEND_URL}/api/registration`,
+      const apiresponse: ApiResponse = await request.post(
+        "/registration",
         userData,
-        config
+        headers
       );
 
-      dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
+      const response = apiresponse.response;
+
+      if (response.success) {
+        dispatch({ type: REGISTER_USER_SUCCESS, payload: response.user });
+      } else {
+        dispatch({
+          type: REGISTER_USER_FAIL,
+          payload: response.message || "Register failed",
+        });
+      }
     } catch (error: any) {
       dispatch({
         type: REGISTER_USER_FAIL,
@@ -114,11 +137,20 @@ export const loadUser = (): ThunkResult => async (dispatch: Dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data }: { data: ApiResponse<User> } = await axios.get(
-      `${BACKEND_URL}/api/me`
-    );
+    const apiresponse: ApiResponse = await request.get("/me");
 
-    dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
+    const response = apiresponse.response;
+
+    if (response.success) {
+      localStorage.removeItem("access_token");
+
+      dispatch({ type: LOAD_USER_SUCCESS, payload: response.user });
+    } else {
+      dispatch({
+        type: LOAD_USER_FAIL,
+        payload: response.message || "Load User failed",
+      });
+    }
   } catch (error: any) {
     dispatch({ type: LOAD_USER_FAIL, payload: error.response?.data?.message });
   }
@@ -127,7 +159,7 @@ export const loadUser = (): ThunkResult => async (dispatch: Dispatch) => {
 // Log out user
 export const logout = (): ThunkResult => async (dispatch: Dispatch) => {
   try {
-    await axios.get(`${BACKEND_URL}/api/logout`);
+    await request.get("/logout");
 
     dispatch({ type: LOGOUT_SUCCESS });
   } catch (error: any) {
@@ -142,15 +174,24 @@ export const updateProfile =
     try {
       dispatch({ type: UPDATE_PROFILE_REQUEST });
 
-      const config = { headers: { "Content-Type": "multipart/form-data" } };
+      const config = { "Content-Type": "multipart/form-data" };
 
-      const { data }: { data: ApiResponse<boolean> } = await axios.put(
-        `${BACKEND_URL}/api/me/update/info`,
+      const apiresponse: ApiResponse = await request.put(
+        "/me/update/info",
         userData,
         config
       );
 
-      dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
+      const response = apiresponse.response;
+
+      if (response.success) {
+        dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: response.success });
+      } else {
+        dispatch({
+          type: UPDATE_PROFILE_FAIL,
+          payload: response.message || "Update User failed",
+        });
+      }
     } catch (error: any) {
       dispatch({
         type: UPDATE_PROFILE_FAIL,
@@ -166,15 +207,24 @@ export const updatePassword =
     try {
       dispatch({ type: UPDATE_PASSWORD_REQUEST });
 
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { "Content-Type": "application/json" };
 
-      const { data }: { data: ApiResponse<boolean> } = await axios.put(
-        `${BACKEND_URL}/api/me/update`,
+      const apiresponse: ApiResponse = await request.put(
+        `/me/update`,
         passwords,
         config
       );
 
-      dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
+      const response = apiresponse.response;
+
+      if (response.success) {
+        dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: response.success });
+      } else {
+        dispatch({
+          type: UPDATE_PASSWORD_FAIL,
+          payload: response.message || "Update password failed",
+        });
+      }
     } catch (error: any) {
       dispatch({
         type: UPDATE_PASSWORD_FAIL,
@@ -188,11 +238,18 @@ export const getAllUsers = (): ThunkResult => async (dispatch: Dispatch) => {
   try {
     dispatch({ type: ALL_USERS_REQUEST });
 
-    const { data }: { data: ApiResponse<User[]> } = await axios.get(
-      `${BACKEND_URL}/api/admin/users`
-    );
+    const apiresponse: ApiResponse = await request.get(`/admin/users`);
 
-    dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
+    const response = apiresponse.response;
+
+    if (response.success) {
+      dispatch({ type: ALL_USERS_SUCCESS, payload: response.users });
+    } else {
+      dispatch({
+        type: ALL_USERS_FAIL,
+        payload: response.message || "Get Users failed",
+      });
+    }
   } catch (error: any) {
     dispatch({ type: ALL_USERS_FAIL, payload: error.response?.data?.message });
   }
@@ -205,15 +262,24 @@ export const forgotPassword =
     try {
       dispatch({ type: FORGOT_PASSWORD_REQUEST });
 
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { "Content-Type": "application/json" };
 
-      const { data }: { data: ApiResponse<string> } = await axios.post(
-        `${BACKEND_URL}/api/password/forgot`,
+      const apiresponse: ApiResponse = await request.post(
+        `/password/forgot`,
         email,
         config
       );
 
-      dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
+      const response = apiresponse.response;
+
+      if (response.success) {
+        dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: response.message });
+      } else {
+        dispatch({
+          type: FORGOT_PASSWORD_FAIL,
+          payload: response.message || "Request failed",
+        });
+      }
     } catch (error: any) {
       dispatch({
         type: FORGOT_PASSWORD_FAIL,
@@ -229,15 +295,24 @@ export const resetPassword =
     try {
       dispatch({ type: RESET_PASSWORD_REQUEST });
 
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { "Content-Type": "application/json" };
 
-      const { data }: { data: ApiResponse<boolean> } = await axios.put(
-        `${BACKEND_URL}/api/password/reset/${token}`,
+      const apiresponse: ApiResponse = await request.put(
+        `/password/reset/${token}`,
         passwords,
         config
       );
 
-      dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.success });
+      const response = apiresponse.response;
+
+      if (response.success) {
+        dispatch({ type: RESET_PASSWORD_SUCCESS, payload: response.success });
+      } else {
+        dispatch({
+          type: RESET_PASSWORD_FAIL,
+          payload: response.message || "Reset password failed",
+        });
+      }
     } catch (error: any) {
       dispatch({
         type: RESET_PASSWORD_FAIL,
@@ -253,11 +328,20 @@ export const deleteUser =
     try {
       dispatch({ type: DELETE_USER_REQUEST });
 
-      const { data }: { data: ApiResponse<null> } = await axios.delete(
-        `${BACKEND_URL}/api/admin/user/${id}`
+      const apiresponse: ApiResponse = await request.delete(
+        `/admin/user/${id}`
       );
 
-      dispatch({ type: DELETE_USER_SUCCESS, payload: data });
+      const response = apiresponse.response;
+
+      if (response.success) {
+        dispatch({ type: DELETE_USER_SUCCESS, payload: response });
+      } else {
+        dispatch({
+          type: DELETE_USER_FAIL,
+          payload: response.message || "User delete failed",
+        });
+      }
     } catch (error: any) {
       dispatch({
         type: DELETE_USER_FAIL,
@@ -273,14 +357,63 @@ export const getUserDetails =
     try {
       dispatch({ type: USER_DETAILS_REQUEST });
 
-      const { data }: { data: ApiResponse<User> } = await axios.get(
-        `${BACKEND_URL}/api/admin/user/${id}`
-      );
+      const apiresponse: ApiResponse = await request.get(`/admin/user/${id}`);
 
-      dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user });
+      const response = apiresponse.response;
+
+      if (response.success) {
+        dispatch({ type: USER_DETAILS_SUCCESS, payload: response.user });
+      } else {
+        dispatch({
+          type: USER_DETAILS_FAIL,
+          payload: response.message || "Request failed",
+        });
+      }
     } catch (error: any) {
       dispatch({
         type: USER_DETAILS_FAIL,
+        payload: error.response?.data?.message,
+      });
+    }
+  };
+
+// Update User Detail (Admin)
+export const updateUserDetail =
+  (id: string, userData: User): ThunkResult =>
+  async (dispatch: Dispatch, getState) => {
+    console.log("update User detail");
+    try {
+      const { allUsers } = getState() as RootState;
+      console.log(allUsers);
+
+      dispatch({ type: UPDATE_USER_REQUEST });
+
+      const headers = { "Content-Type": "multipart/form-data" };
+
+      const apiresponse: ApiResponse = await request.put(
+        `/admin/user/${id}`,
+        userData,
+        headers
+      );
+
+      const response = apiresponse.response;
+
+      const updatedUsers = (allUsers.users ?? []).map((user) =>
+        user._id === response.user._id ? response.user : user
+      );
+
+      if (response.success) {
+        dispatch({ type: ALL_USERS_SUCCESS, payload: updatedUsers });
+      } else {
+        dispatch({
+          type: UPDATE_USER_FAIL,
+          payload: response.message || "Update user failed",
+        });
+      }
+    } catch (error: any) {
+      console.log(error);
+      dispatch({
+        type: UPDATE_USER_FAIL,
         payload: error.response?.data?.message,
       });
     }
