@@ -57,7 +57,7 @@ const UserManagement: React.FC = () => {
               <div
                 key={index}
                 onClick={(e) => showDetailModal(e, user)}
-                className={`bg-blue-900 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate-fadeInUp cursor-pointer`}
+                className={`bg-[#101e46] rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate-fadeInUp cursor-pointer`}
               >
                 <img
                   src={
