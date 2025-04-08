@@ -36,7 +36,6 @@ import {
   UPDATE_PROFILE_SUCCESS,
   UPDATE_USER_FAIL,
   UPDATE_USER_REQUEST,
-  UPDATE_USER_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -56,10 +55,6 @@ interface User {
   // role: string;
 }
 
-interface ApiResponse<> {
-  response: any;
-}
-
 // Thunk Type
 type ThunkResult<R = void> = ThunkAction<R, RootState, unknown, any>;
 
@@ -74,7 +69,7 @@ export const login =
       const headers = { "Content-Type": "application/json" };
 
       // Call MarketAPI correctly
-      const apiresponse: ApiResponse = await request.post(
+      const apiresponse = await request.post(
         "/login",
         { email, password },
         headers
@@ -108,7 +103,7 @@ export const register =
 
       const headers = { "Content-Type": "multipart/form-data" };
 
-      const apiresponse: ApiResponse = await request.post(
+      const apiresponse = await request.post(
         "/registration",
         userData,
         headers
@@ -137,7 +132,7 @@ export const loadUser = (): ThunkResult => async (dispatch: Dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const apiresponse: ApiResponse = await request.get("/me");
+    const apiresponse = await request.get("/me");
 
     const response = apiresponse.response;
 
@@ -176,7 +171,7 @@ export const updateProfile =
 
       const config = { "Content-Type": "multipart/form-data" };
 
-      const apiresponse: ApiResponse = await request.put(
+      const apiresponse = await request.put(
         "/me/update/info",
         userData,
         config
@@ -209,11 +204,7 @@ export const updatePassword =
 
       const config = { "Content-Type": "application/json" };
 
-      const apiresponse: ApiResponse = await request.put(
-        `/me/update`,
-        passwords,
-        config
-      );
+      const apiresponse = await request.put(`/me/update`, passwords, config);
 
       const response = apiresponse.response;
 
@@ -238,7 +229,7 @@ export const getAllUsers = (): ThunkResult => async (dispatch: Dispatch) => {
   try {
     dispatch({ type: ALL_USERS_REQUEST });
 
-    const apiresponse: ApiResponse = await request.get(`/admin/users`);
+    const apiresponse = await request.get(`/admin/users`);
 
     const response = apiresponse.response;
 
@@ -264,11 +255,7 @@ export const forgotPassword =
 
       const config = { "Content-Type": "application/json" };
 
-      const apiresponse: ApiResponse = await request.post(
-        `/password/forgot`,
-        email,
-        config
-      );
+      const apiresponse = await request.post(`/password/forgot`, email, config);
 
       const response = apiresponse.response;
 
@@ -297,7 +284,7 @@ export const resetPassword =
 
       const config = { "Content-Type": "application/json" };
 
-      const apiresponse: ApiResponse = await request.put(
+      const apiresponse = await request.put(
         `/password/reset/${token}`,
         passwords,
         config
@@ -328,9 +315,7 @@ export const deleteUser =
     try {
       dispatch({ type: DELETE_USER_REQUEST });
 
-      const apiresponse: ApiResponse = await request.delete(
-        `/admin/user/${id}`
-      );
+      const apiresponse = await request.delete(`/admin/user/${id}`);
 
       const response = apiresponse.response;
 
@@ -357,7 +342,7 @@ export const getUserDetails =
     try {
       dispatch({ type: USER_DETAILS_REQUEST });
 
-      const apiresponse: ApiResponse = await request.get(`/admin/user/${id}`);
+      const apiresponse = await request.get(`/admin/user/${id}`);
 
       const response = apiresponse.response;
 
@@ -390,7 +375,7 @@ export const updateUserDetail =
 
       const headers = { "Content-Type": "multipart/form-data" };
 
-      const apiresponse: ApiResponse = await request.put(
+      const apiresponse = await request.put(
         `/admin/user/${id}`,
         userData,
         headers
@@ -398,7 +383,7 @@ export const updateUserDetail =
 
       const response = apiresponse.response;
 
-      const updatedUsers = (allUsers.users ?? []).map((user) =>
+      const updatedUsers = (allUsers.users ?? []).map((user: any) =>
         user._id === response.user._id ? response.user : user
       );
 
