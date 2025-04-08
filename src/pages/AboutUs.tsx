@@ -67,7 +67,7 @@ const AboutUS: React.FC = () => {
                 alt="Person"
                 className="rounded-full w-24 h-24 mx-auto mb-4"
               />
-              <h3 className="text-lg font-semibold">Michael Brown1</h3>
+              <h3 className="text-lg font-semibold">Michael Brown</h3>
               <p className="text-gray-500">Marketing Head</p>
             </div>
           </div>
